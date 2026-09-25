@@ -1,4 +1,7 @@
 ﻿
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
 namespace Bank;
 
     internal class BankAccount
@@ -29,6 +32,21 @@ namespace Bank;
             s_accauntNumberS++;
         }
 
+    public string GetAccountHistory()
+    {
+        var report = new StringBuilder();
+
+        decimal balance = 0;
+        report.AppendLine("Data\t\tAmount\tBalance\tNote");
+        foreach (var item in _allTransactions )
+        {
+            balance += item.Amount;
+            report.AppendLine($""+
+                $"{item.Date.ToShortDateString()}\t"+
+                $"{item.Amount}\t{balance}\t{item.Note}");
+        }
+        return report.ToString();
+    }
         public void MakeDeposite  (decimal amount, DateTime date, string note)
         {
             if(amount<=0)
@@ -39,8 +57,8 @@ namespace Bank;
             _allTransactions.Add(deposit);
         }
 
-    public void MakeWithdrawal (decimal amount, DateTime date, string note)
-        {
+    public void MakeWithdrawal(decimal amount, DateTime date, string note)
+    {
         if (amount <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive");
@@ -51,6 +69,7 @@ namespace Bank;
         }
         var withdrawal = new Transaction(-amount, date, note);
         _allTransactions.Add(withdrawal);
+
     }
 
 }
