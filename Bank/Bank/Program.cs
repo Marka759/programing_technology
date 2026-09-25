@@ -6,7 +6,7 @@
         {
          BankAccount account1 = new BankAccount("Yana", 1000000);
          BankAccount account2 = new BankAccount("Lena", 100);
-            Console.WriteLine($"{account1.Owner} {account1.Balance} {account1.Number}");
+            Console.WriteLine($"{account1.Owner} { account1.Balance} {account1.Number}");
             Console.WriteLine($"{account2.Owner} {account2.Balance} {account2.Number}");
             account1.MakeDeposite(12000, DateTime.UtcNow, ";)");
             Console.WriteLine($"Balance: {account1.Balance}");
