@@ -23,6 +23,29 @@
             {
                 Console.WriteLine(e.Message);
             }
+
+            InterestEarningAccountcs interest = new InterestEarningAccountcs("Yana", 1000);
+            interest.PerformMonthAndTransaction();
+            Console.WriteLine(interest.GetAccountHistory());
+
+            LineOfCreditAccount lineOfCredit = new LineOfCreditAccount("Yana", 0, 1000m);
+            lineOfCredit.MakeWithdrawal(500m, DateTime.UtcNow, "credit");
+            GiftCartAccount giftcart = new GiftCartAccount("Yana", 1000m,5000m);
+            List<BankAccount> accounts = new List<BankAccount>();
+            accounts.Add(account1);
+            accounts.Add(interest);
+            accounts.Add(lineOfCredit);
+            accounts.Add(giftcart);
+            foreach (BankAccount account in accounts)
+            {
+                Console.WriteLine(account);//Console.WriteLine(account.ToString());
+                account.PerformMonthAndTransaction();
+                Console.WriteLine(account.GetAccountHistory());
+            }
+
+            lineOfCredit.MakeWithdrawal(600m, DateTime.UtcNow, "credit");
+            Console.WriteLine(lineOfCredit.GetAccountHistory);
+                
         }
     }
 }

@@ -3,9 +3,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Bank;
-
-    internal class BankAccount
+//BankAccount -  потомок класса Object
+public class BankAccount
     {
+
+    private readonly decimal _minimumBalance;
         private List<Transaction> _allTransactions = new List<Transaction>();
         public string Owner { get; private set; } 
         public string Number { get;  }
@@ -22,16 +24,25 @@ namespace Bank;
     
         }
         private static int s_accauntNumberS = 1000000000;
-        public BankAccount(string name, decimal initialBalance)
-        {
-            
-            MakeDeposite(initialBalance,DateTime.UtcNow, "initial balance"); // this.Balance = initialBalance;
+
+
+    public BankAccount(string name, decimal initialBalance) : this(name, initialBalance, 0)
+    { 
+    }
+    public BankAccount(string name, decimal initialBalance, decimal minimumBalance)
+    {
             Owner = name;
             Number = s_accauntNumberS.ToString();
-
             s_accauntNumberS++;
-        }
 
+        _minimumBalance = minimumBalance;
+        if (initialBalance>0)
+            MakeDeposite(initialBalance,DateTime.UtcNow, "initial balance"); // this.Balance = initialBalance;
+            
+            
+
+            
+        }
     public string GetAccountHistory()
     {
         var report = new StringBuilder();
@@ -46,6 +57,18 @@ namespace Bank;
                 $"{item.Amount}\t{balance}\t{item.Note}");
         }
         return report.ToString();
+
+    }
+    // virtual - ключевое слово, позволяющее в дочернем классе предоставить другую реализацию этому методу 
+    public virtual void PerformMonthAndTransaction()
+    {
+
+    }
+    //Переопределяем метод базового класса -  класса object
+    //ToString - возвращает строку с информацией об объекте
+    public override string ToString()
+    {
+        return $"Owner: {Owner}\taccount number: {Number} (тип счёта {GetType()}";
     }
         public void MakeDeposite  (decimal amount, DateTime date, string note)
         {
@@ -59,18 +82,33 @@ namespace Bank;
 
     public void MakeWithdrawal(decimal amount, DateTime date, string note)
     {
-        if (amount <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive");
-        }
-        if (Balance < amount)
-        {
-            throw new InvalidOperationException("Not sufficient money for thid withdrawal");
-        }
-        var withdrawal = new Transaction(-amount, date, note);
+
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(amount);
+
+        Transaction? overdraftTransaction = CheckWithdrawalLimit(Balance - amount < _minimumBalance);
+
+        Transaction? withdrawal = new(-amount, date, note);
+
         _allTransactions.Add(withdrawal);
 
-    }
+        if(overdraftTransaction is not null ) 
+            _allTransactions.Add(overdraftTransaction);
 
+    }
+    // protected - модификатор доступа, который означает, что этот метод можно вызвать только из текущего и дочернего класса 
+    // Клиент (внешний код) данный метод вызвать не может 
+    protected virtual Transaction? CheckWithdrawalLimit(bool isOverDrawn)
+    {
+        if (isOverDrawn)
+        {
+            throw new InvalidOperationException("Not sufficient rubls for this withdrawl");
+
+        }
+        else 
+        {
+            // default содержит значение по умолчанию, так как тип возвращаемого значения - ссылочный, то эта переменная возрашает null
+            return default;// == return null;
+        }
+    }
 }
 
