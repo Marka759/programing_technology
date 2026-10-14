@@ -17,7 +17,7 @@ public static class BankTransferService
         {
             to.MakeDeposite(amount, date, $"Transfer from {from.Number}: {note}");
         }
-        catch
+        catch 
         {
             from.MakeDeposite(amount, date, $"Rollback transfer to {to.Number}");
             throw;
