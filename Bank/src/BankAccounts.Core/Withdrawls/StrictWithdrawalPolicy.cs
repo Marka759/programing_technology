@@ -5,5 +5,5 @@ public sealed class StrictWithdrawalPolicy : IWithdrawalPolicy
     public WithdrawlDecision Evaluate(decimal currentBalance, decimal amount, decimal minimumBalance)
         =>  currentBalance - amount < minimumBalance
             ? WithdrawlDecision.Reject("Not sufficiant rubles for this withdrawal")
-            : WithdrawlDecision.Allow();
+            : WithdrawlDecision.Allow(); 
 }
