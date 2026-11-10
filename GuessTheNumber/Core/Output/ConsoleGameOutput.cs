@@ -1,26 +1,24 @@
 ﻿using GuessTheNumber.Core.Game;
 
-namespace GuessTheNumber.Core.Output;
-
-internal class ConsoleGameOutput : IGameOutput
+namespace GuessTheNumber.Core.Output
 {
-    public void ShowHint(ComparisonResult result)
+    public class ConsoleGameOutput : IGameOutput
     {
-        switch (result)
+        public void ShowMessage(string message)
         {
-            case ComparisonResult.TooLow:
-                Console.WriteLine("Your number is less");
-                break;
-            case ComparisonResult.TooHigh:
-                Console.WriteLine("Your number is greater");
-                break;
-            default:
-                Console.WriteLine("");
-                break;
+            Console.WriteLine(message);
         }
-
+        public void ShowHint(ComparisonResult result)
+        {
+            switch (result)
+            {
+                case ComparisonResult.TooLow:
+                    Console.WriteLine("Ваше число меньше");
+                    break;
+                case ComparisonResult.TooHigh:
+                    Console.WriteLine("Ваше число больше");
+                    break;
+            }
+        }
     }
-
-    public void ShowMessage(string message)
-        => Console.WriteLine(message);
 }

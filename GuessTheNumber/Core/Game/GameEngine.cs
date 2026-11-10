@@ -1,24 +1,22 @@
 ﻿using GuessTheNumber.Core.Input;
 using GuessTheNumber.Core.Output;
 using GuessTheNumber.Core.Settings;
-using System.Security;
 
-namespace GuessTheNumber.Core.Game;
-
-public class GameEngine
+namespace GuessTheNumber.Core.Game
 {
-    private readonly GameSettings _settings;
-    private readonly IRandomNumberGenerator _generator;
-    private readonly IGuessComparer _comparer;
-    private readonly IInputReader _input;
-    private readonly IGameOutput _output;
-
-    public GameEngine(
-        GameSettings settings,
-        IRandomNumberGenerator generator,
-        IGuessComparer comparer ,
-        IInputReader input,
-        IGameOutput output )
+    public class GameEngine
+    {
+        private readonly GameSettings _settings;
+        private readonly IRandomNumberGenerator _generator;
+        private readonly IGuessComparer _comparer;
+        private readonly IInputReader _input;
+        private readonly IGameOutput _output;
+        public GameEngine(
+            GameSettings settings,
+            IRandomNumberGenerator generator,
+            IGuessComparer comparer,
+            IInputReader input,
+            IGameOutput output)
         {
             _settings = settings;
             _generator = generator;
@@ -27,33 +25,31 @@ public class GameEngine
             _output = output;
         }
 
-    public (bool Win, int Attempts) PlayRound()
-    {
-        int random = _generator.Next(_settings);
-        int attempts = 0;
-
-        _output.ShowMessage($"Input number from [{_settings.Min};{_settings.Max}]");
-
-        while (true)
+        public GameRoundResult PlayRound()
         {
+            int secretNumber = _generator.Next(_settings);
+            int attempts = 0;
 
-            if (!_input.ReadNumber(_settings, out int guess))
+            while (true)
             {
-                _output.ShowMessage("No input attempts left.");
-                return (false, attempts);
-            }
-            attempts++;
+                if (!_input.ReadNumber(_settings, out int guess))
+                {
+                    _output.ShowMessage("Попытки ввода закончились.");
+                    return new GameRoundResult(false, attempts);
+                }
 
-            var result = _comparer.Compare(guess, random);
-            if (result == ComparisonResult.Correct)
-            {
-                _output.ShowMessage($"You won in {attempts} attempts!");
-                return (true, attempts);
-            }
+                attempts++;
 
-            _output.ShowHint(result);
+                ComparisonResult result = _comparer.Compare(guess, secretNumber);
+
+                if (result == ComparisonResult.Correct)
+                {
+                    _output.ShowMessage($"Вы угадали за {attempts} попыток!");
+                    return new GameRoundResult(true, attempts);
+                }
+
+                _output.ShowHint(result);
+            }
         }
-
     }
-
 }

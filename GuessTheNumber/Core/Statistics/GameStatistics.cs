@@ -1,27 +1,37 @@
-﻿namespace GuessTheNumber.Core.Statistics;
+﻿using GuessTheNumber.Core.Game;
 
-public class GameStatistics
+namespace GuessTheNumber.Core.Statistics
 {
-    private int _gamesPlayed;
-    private int _totalAttempts;
-    private int _minAttempts = int.MaxValue; 
-    private int _maxAttempts;
-
-    public void Register(bool isWon, int attempts)
+    public class GameStatistics
     {
-        if (!isWon) return;   
-        _gamesPlayed++;
-        _totalAttempts += attempts;
-        _minAttempts = Math.Min(_minAttempts, attempts);
-        _maxAttempts = Math.Max(_maxAttempts, attempts);
-    }
+        private int _gamesPlayed;
+        private int _totalAttempts;
+        private int _minAttempts = int.MaxValue;
+        private int _maxAttempts;
+        public void Register(GameRoundResult result)
+        {
+            if (!result.IsWon) return;
 
-    public string ToReport()
-    {
-        if (_gamesPlayed == 0)
-            return "No completed games.";
+            _gamesPlayed++;
+            _totalAttempts += result.Attempts;
 
-        double average = _totalAttempts * 1.0 / _gamesPlayed;
-        return $"min={_minAttempts} max={_maxAttempts} avg={average:F2}";
+            if (result.Attempts < _minAttempts)
+                _minAttempts = result.Attempts;
+
+            if (result.Attempts > _maxAttempts)
+                _maxAttempts = result.Attempts;
+        }
+
+        public void PrintReport()
+        {
+            if (_gamesPlayed == 0)
+            {
+                Console.WriteLine("Нет завершенных игр.");
+                return;
+            }
+
+            double average = (double)_totalAttempts / _gamesPlayed;
+            Console.WriteLine($"Мин: {_minAttempts}, Макс: {_maxAttempts}, Среднее: {average:F2}");
+        }
     }
 }

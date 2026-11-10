@@ -1,5 +1,4 @@
 ﻿using GuessTheNumber.Core.Settings;
-using System.Threading.Channels;
 
 namespace GuessTheNumber.Core.Input
 {
@@ -7,16 +6,19 @@ namespace GuessTheNumber.Core.Input
     {
         public bool ReadNumber(GameSettings settings, out int value)
         {
-            for (int i = 0; i<settings.MaxInputAttempts; i++)
+            for (int i = 0; i < settings.MaxInputAttempts; i++)
             {
-                var raw = Console.ReadLine();
-                if (int.TryParse(raw, out value) && value>=settings.Min && value <= settings.Max)
-                    { return true; }
-                Console.WriteLine($"Input number between {settings.Min} and {settings.Max}");
-            }
+                Console.Write($"Введите число от {settings.Min} до {settings.Max}: ");
+                string raw = Console.ReadLine();
 
+                if (int.TryParse(raw, out value) && value >= settings.Min && value <= settings.Max)
+                {
+                    return true;
+                }
+                Console.WriteLine("Некорректный ввод.");
+            }
             value = 0;
-            return false;   
+            return false;
         }
     }
 }

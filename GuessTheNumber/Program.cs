@@ -4,42 +4,39 @@ using GuessTheNumber.Core.Output;
 using GuessTheNumber.Core.Settings;
 using GuessTheNumber.Core.Statistics;
 
-namespace GuessTheNumber 
+namespace GuessTheNumber
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var settings = new GameSettings(Min: 1, Max: 100, MaxInputAttempts: 3);
+            GameSettings settings = new GameSettings(1, 100, 3);
+            IGameOutput output = new ConsoleGameOutput();
+            IInputReader input = new ConsoleInputReader();
 
-            var output = new ConsoleGameOutput();
+            IRandomNumberGenerator generator = new RandomSecretNumberGenerator();
+            IGuessComparer comparer = new NumericGuessComparer();
 
-            var engine = new GameEngine(
-                settings,
-                new RandomSecretNumberGenerator(),
-                new NumericGuessComparer(),
-                new ConsoleInputReader(),
-                output);
-
-            var statistics = new GameStatistics();
+            GameEngine engine = new GameEngine(settings, generator, comparer, input, output);
+            GameStatistics stats = new GameStatistics();
 
             string answer;
             do
             {
+                GameRoundResult result = engine.PlayRound();
+                stats.Register(result);
 
-                var (isWon, attempts) = engine.PlayRound();
+                output.ShowMessage("Хотите сыграть еще? (Y/N)");
+                answer = Console.ReadLine();
 
-                statistics.Register(isWon, attempts);
-
-                output.ShowMessage("Do you want to play again? (Y/N)");
-
-
-                answer = (Console.ReadLine() ?? "").ToUpper();
+                if (answer != null)
+                {
+                    answer = answer.Trim().ToUpper();
+                }
             }
             while (answer == "Y");
 
-            output.ShowMessage(statistics.ToReport());
+            stats.PrintReport();
         }
     }
 }
-
