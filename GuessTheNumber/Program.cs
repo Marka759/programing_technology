@@ -10,7 +10,44 @@ namespace GuessTheNumber
     {
         static void Main(string[] args)
         {
-            GameSettings settings = new GameSettings(1, 100, 3);
+            Console.WriteLine("Выберите сложность:");
+            Console.WriteLine("1 - Легкий");
+            Console.WriteLine("2 - Средний (по умолчанию)");
+            Console.WriteLine("3 - Сложный");
+            Console.WriteLine("4 - Свои значения");
+            Console.Write("Ваш выбор: ");
+
+            string choice = Console.ReadLine();
+            Difficulty difficulty = Difficulty.Medium;
+            GameSettings settings;
+
+            if (choice == "1")
+            {
+                difficulty = Difficulty.Easy;
+                settings = SettingValue.GetSettings(difficulty);
+            }
+            else if (choice == "3")
+            {
+                difficulty = Difficulty.Hard;
+                settings = SettingValue.GetSettings(difficulty);
+            }
+            else if (choice == "4")
+            {
+                Console.WriteLine("Введите минимальное число:");
+                int min = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Введите максимальное число:");
+                int max = int.Parse(Console.ReadLine());
+
+                settings = new GameSettings(min, max, 3);
+            }
+            else
+            {
+                difficulty = Difficulty.Medium;
+                settings = SettingValue.GetSettings(difficulty);
+            }
+
+
             IGameOutput output = new ConsoleGameOutput();
             IInputReader input = new ConsoleInputReader();
 

@@ -7,6 +7,11 @@
         public int MaxInputAttempts { get; }
         public GameSettings(int min, int max, int maxInputAttempts)
         {
+            if (min >= max)
+            {
+                throw new ArgumentException("Минимальное число должно быть меньше максимального!");
+            }
+
             Min = min;
             Max = max;
             MaxInputAttempts = maxInputAttempts;
