@@ -4,44 +4,44 @@ namespace GuessTheNumber.Core.Statistics
 {
     public class GameStatistics
     {
-        private int _gamesPlayed;
-        private int _totalAttempts;
-        private int _minAttempts = int.MaxValue;
-        private int _maxAttempts;
-        private int _wins;
-        private int _losses;
+        public int GamesPlayed { get; private set; }
+        public int TotalAttempts { get; private set; }
+        public int MinAttempts { get; private set; } = int.MaxValue;
+        public int MaxAttempts { get; private set; }
+        public int Wins { get; private set; }
+        public int Losses { get; private set; }
 
         public void Register(GameRoundResult result)
         {
-            _gamesPlayed++;
+            GamesPlayed++;
             if (!result.IsWon)
             {
-                _wins++;
-                _totalAttempts += result.Attempts;
+                Wins++;
+                TotalAttempts += result.Attempts;
 
-                if (result.Attempts < _minAttempts)
-                    _minAttempts = result.Attempts;
+                if (result.Attempts < MinAttempts)
+                    MinAttempts = result.Attempts;
 
-                if (result.Attempts > _maxAttempts)
-                    _maxAttempts = result.Attempts;
+                if (result.Attempts > MaxAttempts)
+                    MaxAttempts = result.Attempts;
 
             }
-            else { _losses++; }
+            else { Losses++; }
 
         }
 
         public void PrintReport()
         {
             Console.WriteLine("\n Статистика игр ");
-            Console.WriteLine($"Всего игр: {_gamesPlayed}");
-            Console.WriteLine($"Побед: {_wins}");
-            Console.WriteLine($"Поражений: {_losses}");
+            Console.WriteLine($"Всего игр: {GamesPlayed}");
+            Console.WriteLine($"Побед: {Wins}");
+            Console.WriteLine($"Поражений: {Losses}");
 
-            if (_wins > 0)
+            if (Wins > 0)
             {
-                double average = (double)_totalAttempts / _wins;
-                Console.WriteLine($"Мин. попыток: {_minAttempts}");
-                Console.WriteLine($"Макс. попыток: {_maxAttempts}");
+                double average = (double)TotalAttempts / Wins;
+                Console.WriteLine($"Мин. попыток: {MinAttempts}");
+                Console.WriteLine($"Макс. попыток: {MaxAttempts}");
                 Console.WriteLine($"Среднее кол-во попыток: {average:F2}");
             }
             else

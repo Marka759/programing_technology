@@ -74,6 +74,12 @@ namespace GuessTheNumber
             while (answer == "Y");
 
             stats.PrintReport();
+
+            IStatisticsSave file = new SafeFileStatistics("statistics.txt");
+            file.Save(stats);
+
+            Console.WriteLine("Статистика успешно сохранена в файл statistics.txt!");
+            Console.ReadKey();
         }
     }
 }
