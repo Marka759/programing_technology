@@ -14,7 +14,7 @@ namespace GuessTheNumber.Core.Statistics
         public void Register(GameRoundResult result)
         {
             GamesPlayed++;
-            if (!result.IsWon)
+            if (result.IsWon)
             {
                 Wins++;
                 TotalAttempts += result.Attempts;

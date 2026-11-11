@@ -12,7 +12,7 @@ namespace GuessTheNumber.Core.Game
         private readonly IGuessComparer _comparer;
         private readonly IInputReader _input;
         private readonly IGameOutput _output;
-        public event EventHandler<GuessEventArgs> OnGuessMade;
+        public event EventHandler<GuessEventArgs>? GuessMade;
 
         public GameEngine(
             GameSettings settings,
@@ -47,6 +47,8 @@ namespace GuessTheNumber.Core.Game
 
                 ComparisonResult result = _comparer.Compare(guess, secretNumber);
 
+                OnGuessMade(new GuessEventArgs(guess, secretNumber, result));
+
                 if (result == ComparisonResult.Correct)
                 {
                     _output.ShowMessage($"Вы угадали за {attempts} попыток!");
@@ -59,8 +61,14 @@ namespace GuessTheNumber.Core.Game
                     return new GameRoundResult(false, attempts);
                 }
 
-                _output.ShowHint(result);
+                //_output.ShowHint(result);
             }
         }
+        protected virtual void OnGuessMade(GuessEventArgs e)
+        {
+            GuessMade?.Invoke(this, e);
+        }
+
+
     }
 }

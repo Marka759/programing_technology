@@ -1,4 +1,5 @@
-﻿using GuessTheNumber.Core.Game;
+﻿using GuessTheNumber.Core.Event;
+using GuessTheNumber.Core.Game;
 using GuessTheNumber.Core.Input;
 using GuessTheNumber.Core.Output;
 using GuessTheNumber.Core.Settings;
@@ -55,6 +56,8 @@ namespace GuessTheNumber
             IGuessComparer comparer = new NumericGuessComparer();
 
             GameEngine engine = new GameEngine(settings, generator, comparer, input, output);
+            GuessEventHandler eventHandler = new GuessEventHandler();
+            engine.GuessMade += eventHandler.OnGuessMade;
             GameStatistics stats = new GameStatistics();
 
             string answer;
@@ -72,6 +75,8 @@ namespace GuessTheNumber
                 }
             }
             while (answer == "Y");
+
+            engine.GuessMade -= eventHandler.OnGuessMade;
 
             stats.PrintReport();
 
