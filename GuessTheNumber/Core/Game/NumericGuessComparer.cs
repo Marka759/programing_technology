@@ -1,6 +1,6 @@
 ﻿namespace GuessTheNumber.Core.Game;
 
-internal class NumericGuessComparer : IGuessComparer
+public class NumericGuessComparer : IGuessComparer
 {
     public ComparisonResult Compare(int guess, int random)
         => guess > random ? ComparisonResult.TooHigh

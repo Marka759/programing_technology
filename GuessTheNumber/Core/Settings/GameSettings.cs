@@ -4,18 +4,19 @@
     {
         public int Min { get; }
         public int Max { get; }
-        public int MaxInputAttempts { get; }
         public int GuessesLeft { get; }
-        public GameSettings(int min, int max, int maxInputAttempts, int guessesLeft)
+        public GameSettings(int min, int max, int guessesLeft)
         {
             if (min >= max)
             {
                 throw new ArgumentException("Минимальное число должно быть меньше максимального!");
             }
 
+            if (guessesLeft <= 0)
+                throw new ArgumentOutOfRangeException(nameof(guessesLeft));
+
             Min = min;
             Max = max;
-            MaxInputAttempts = maxInputAttempts;
             GuessesLeft = guessesLeft;
         }
     }

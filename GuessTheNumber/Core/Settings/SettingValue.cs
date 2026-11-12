@@ -6,13 +6,13 @@ public class SettingValue
         switch (difficulty)
         {
             case Difficulty.Easy:
-                return new GameSettings(min: 1, max: 10, maxInputAttempts: 5, guessesLeft: 5);
+                return new GameSettings(min: 1, max: 10, guessesLeft: 5);
             case Difficulty.Medium:
-                return new GameSettings(min: 1, max: 100, maxInputAttempts: 12, guessesLeft: 12);
+                return new GameSettings(min: 1, max: 100, guessesLeft: 12);
             case Difficulty.Hard:
-                return new GameSettings(min: 1, max: 1000, maxInputAttempts: 25, guessesLeft: 25);
+                return new GameSettings(min: 1, max: 1000, guessesLeft: 25);
             default:
-                return new GameSettings(1, 100, 12, 12);
+                return new GameSettings(1, 100, 12);
         }
     } 
 }
