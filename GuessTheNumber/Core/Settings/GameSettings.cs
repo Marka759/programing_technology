@@ -5,7 +5,8 @@
         public int Min { get; }
         public int Max { get; }
         public int MaxInputAttempts { get; }
-        public GameSettings(int min, int max, int maxInputAttempts)
+        public int GuessesLeft { get; }
+        public GameSettings(int min, int max, int maxInputAttempts, int guessesLeft)
         {
             if (min >= max)
             {
@@ -15,6 +16,7 @@
             Min = min;
             Max = max;
             MaxInputAttempts = maxInputAttempts;
+            GuessesLeft = guessesLeft;
         }
     }
 }

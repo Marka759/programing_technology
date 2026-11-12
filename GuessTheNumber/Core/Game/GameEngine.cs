@@ -33,16 +33,26 @@ namespace GuessTheNumber.Core.Game
         {
             int secretNumber = _generator.Next(_settings);
             int attempts = 0;
-            const int MaxGuesses = 3;
+            int inputErrors = 0;
+
+            _output.ShowMessage($"Загадано число от {_settings.Min} до {_settings.Max}. У вас {_settings.GuessesLeft} попыток.");
 
             while (true)
             {
- 
                 if (!_input.ReadNumber(_settings, out int guess))
                 {
-                    _output.ShowMessage("Попытки ввода закончились (ошибки при наборе).");
-                    return new GameRoundResult(false, attempts);
+                    inputErrors++; 
+                    _output.ShowMessage($"Некорректный ввод. Ошибок подряд: {inputErrors}/3");
+
+                    if (inputErrors >= 3)
+                    {
+                        _output.ShowMessage("Вы 3 раза подряд ввели некорректные данные.");
+                        return new GameRoundResult(false, attempts);
+                    }
+
+                    continue; 
                 }
+                inputErrors = 0;
                 attempts++;
 
                 ComparisonResult result = _comparer.Compare(guess, secretNumber);
@@ -55,13 +65,13 @@ namespace GuessTheNumber.Core.Game
                     return new GameRoundResult(true, attempts);
                 }
 
-                if (attempts >= MaxGuesses)
+                if (attempts >= _settings.GuessesLeft)
                 {
                     _output.ShowMessage($"Вы проиграли! Загаданное число было: {secretNumber}");
                     return new GameRoundResult(false, attempts);
                 }
 
-                //_output.ShowHint(result);
+                _output.ShowMessage($"Осталось ходов: {_settings.GuessesLeft - attempts}");
             }
         }
         protected virtual void OnGuessMade(GuessEventArgs e)

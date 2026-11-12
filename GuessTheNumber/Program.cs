@@ -18,6 +18,7 @@ namespace GuessTheNumber
             Console.WriteLine("4 - Свои значения");
             Console.Write("Ваш выбор: ");
 
+
             string choice = Console.ReadLine();
             Difficulty difficulty = Difficulty.Medium;
             GameSettings settings;
@@ -40,10 +41,11 @@ namespace GuessTheNumber
                 Console.WriteLine("Введите максимальное число:");
                 int max = int.Parse(Console.ReadLine());
 
-                settings = new GameSettings(min, max, 3);
+                settings = new GameSettings(min, max, 12,12);
             }
             else
             {
+                Console.WriteLine("Выбран средний режим сложности по умолчанию");
                 difficulty = Difficulty.Medium;
                 settings = SettingValue.GetSettings(difficulty);
             }
