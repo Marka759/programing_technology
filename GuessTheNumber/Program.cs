@@ -11,11 +11,12 @@ namespace GuessTheNumber
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Выберите сложность:");
-            Console.WriteLine("1 - Легкий");
-            Console.WriteLine("2 - Средний (по умолчанию)");
-            Console.WriteLine("3 - Сложный");
-            Console.WriteLine("4 - Свои значения");
+            IGameOutput output = new ConsoleGameOutput();
+            output.ShowMessage("Выберите сложность:");
+            output.ShowMessage("1 - Легкий");
+            output.ShowMessage("2 - Средний (по умолчанию)");
+            output.ShowMessage("3 - Сложный");
+            output.ShowMessage("4 - Свои значения");
             Console.Write("Ваш выбор: ");
 
 
@@ -36,26 +37,23 @@ namespace GuessTheNumber
             }
             else if (choice == "4")
             {
-                Console.WriteLine("Введите минимальное число:");
+                output.ShowMessage("Введите минимальное число:");
                 int min = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Введите максимальное число:");
+                output.ShowMessage("Введите максимальное число:");
                 int max = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Введите количество попыток:");
+                output.ShowMessage("Введите количество попыток:");
                 int att = int.Parse(Console.ReadLine());
 
                 settings = new GameSettings(min, max,att);
             }
             else
             {
-                Console.WriteLine("Выбран средний режим сложности по умолчанию");
+                output.ShowMessage("Выбран средний режим сложности по умолчанию");
                 difficulty = Difficulty.Medium;
                 settings = SettingValue.GetSettings(difficulty);
             }
-
-
-            IGameOutput output = new ConsoleGameOutput();
             IInputReader input = new ConsoleInputReader();
 
             IRandomNumberGenerator generator = new RandomSecretNumberGenerator();
@@ -89,7 +87,7 @@ namespace GuessTheNumber
             IStatisticsSave file = new SafeFileStatistics("statistics.txt");
             file.Save(stats);
 
-            Console.WriteLine("Статистика успешно сохранена в файл statistics.txt!");
+            output.ShowMessage("Статистика успешно сохранена в файл statistics.txt!");
             Console.ReadKey();
         }
     }
