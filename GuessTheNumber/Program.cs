@@ -41,7 +41,10 @@ namespace GuessTheNumber
                 Console.WriteLine("Введите максимальное число:");
                 int max = int.Parse(Console.ReadLine());
 
-                settings = new GameSettings(min, max,12);
+                Console.WriteLine("Введите количество попыток:");
+                int att = int.Parse(Console.ReadLine());
+
+                settings = new GameSettings(min, max,att);
             }
             else
             {
