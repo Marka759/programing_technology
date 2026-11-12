@@ -23,6 +23,7 @@ namespace GuessTheNumber
             Difficulty difficulty = Difficulty.Medium;
             GameSettings settings;
 
+
             if (choice == "1")
             {
                 difficulty = Difficulty.Easy;
