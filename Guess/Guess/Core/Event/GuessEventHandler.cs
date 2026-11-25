@@ -1,7 +1,7 @@
 ﻿using GuessTheNumber.Core.Game;
 
 namespace GuessTheNumber.Core.Event;
-
+//SRP
 public class GuessEventHandler
 {
     public void OnGuessMade(object? sender, GuessEventArgs e)

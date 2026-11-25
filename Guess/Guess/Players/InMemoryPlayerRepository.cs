@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Players;
-
+//LSP,OCP
 public class InMemoryPlayerRepository : IPlayerRepository
 {
     private readonly Dictionary<string, Player> _players =

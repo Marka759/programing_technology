@@ -1,6 +1,6 @@
 ﻿namespace GuessTheNumber.Core.Settings;
 public class SettingValue
-{
+{//SRP
     public static GameSettings GetSettings(Difficulty difficulty)
     {
         switch (difficulty)

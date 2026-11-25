@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Players;
-
+//SRP
 public class PlayerSession : IPlayerSession
 {
     public Player? CurrentPlayer { get; private set; }

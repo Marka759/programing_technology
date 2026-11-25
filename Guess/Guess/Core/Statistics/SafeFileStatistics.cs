@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Statistics;
-
+//SRP,,LSP
 public class SafeFileStatistics : IStatisticsSave
 {
     private readonly string _filePath;

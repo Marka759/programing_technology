@@ -1,7 +1,7 @@
 ﻿using GuessTheNumber.Core.Statistics;
 
 namespace GuessTheNumber.Core.Players;
-
+//LSP,OCP
 public class FilePlayerRepository : IPlayerRepository
 {
     private readonly Dictionary<string, Player> _players =

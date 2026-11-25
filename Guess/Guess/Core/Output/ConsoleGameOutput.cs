@@ -1,5 +1,5 @@
 ﻿using GuessTheNumber.Core.Game;
-
+//SRP
 namespace GuessTheNumber.Core.Output
 {
     public class ConsoleGameOutput : IGameOutput

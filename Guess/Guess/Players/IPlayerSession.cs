@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Players;
-
+//ISP
 public interface IPlayerSession
 {
     Player? CurrentPlayer { get; }

@@ -1,5 +1,5 @@
 ﻿using GuessTheNumber.Core.Game;
-
+//SRP
 namespace GuessTheNumber.Core.Statistics
 {
     public class GameStatistics
@@ -12,7 +12,6 @@ namespace GuessTheNumber.Core.Statistics
         private int _minAttempts = int.MaxValue;
         private int _maxAttempts;
 
-        // null, если побед ещё не было
         public int? MinAttempts => Wins > 0 ? _minAttempts : null;
         public int? MaxAttempts => Wins > 0 ? _maxAttempts : null;
 

@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Players;
-
+//DIP,ISP
 public interface IPlayerRepository
 {
     Player? Find(string username);

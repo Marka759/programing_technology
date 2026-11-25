@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Game;
-
+//SRP
 public class NumericGuessComparer : IGuessComparer
 {
     public ComparisonResult Compare(int guess, int random)

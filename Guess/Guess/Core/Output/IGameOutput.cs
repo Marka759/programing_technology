@@ -1,7 +1,7 @@
 ﻿using GuessTheNumber.Core.Game;
 
 namespace GuessTheNumber.Core.Output;
-
+//ISP
 public interface IGameOutput
 {
     void ShowMessage(string message);

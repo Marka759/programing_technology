@@ -1,5 +1,5 @@
 ﻿using GuessTheNumber.Core.Settings;
-
+//SRP
 namespace GuessTheNumber.Core.Input
 {
     public class ConsoleInputReader : IInputReader

@@ -1,5 +1,5 @@
 ﻿namespace GuessTheNumber.Core.Settings
-{
+{//SRP
     public class GameSettings
     {
         public int Min { get; }

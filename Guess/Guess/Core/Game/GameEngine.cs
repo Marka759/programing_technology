@@ -4,7 +4,7 @@ using GuessTheNumber.Core.Output;
 using GuessTheNumber.Core.Settings;
 
 namespace GuessTheNumber.Core.Game
-{
+{//DIP,OCP
     public class GameEngine
     {
         private readonly GameSettings _settings;

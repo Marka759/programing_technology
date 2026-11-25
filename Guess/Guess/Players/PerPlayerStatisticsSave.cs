@@ -1,7 +1,7 @@
 ﻿using GuessTheNumber.Core.Players;
 
 namespace GuessTheNumber.Core.Statistics;
-
+//SRP,OCP
 public class PerPlayerStatisticsSave : IStatisticsSave
 {
     private readonly string _directory;

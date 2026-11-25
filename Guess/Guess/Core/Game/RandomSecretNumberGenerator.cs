@@ -1,7 +1,7 @@
 ﻿using GuessTheNumber.Core.Settings;
 
 namespace GuessTheNumber.Core.Game;
-
+//SRP
 public sealed class RandomSecretNumberGenerator : IRandomNumberGenerator
 {
     private readonly Random _random = new();
