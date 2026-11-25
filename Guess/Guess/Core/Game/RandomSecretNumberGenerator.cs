@@ -2,7 +2,7 @@
 
 namespace GuessTheNumber.Core.Game;
 
-public class RandomSecretNumberGenerator : IRandomNumberGenerator
+public sealed class RandomSecretNumberGenerator : IRandomNumberGenerator
 {
     private readonly Random _random = new();
     public int Next(GameSettings settings)

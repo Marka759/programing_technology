@@ -6,10 +6,15 @@ namespace GuessTheNumber.Core.Statistics
     {
         public int GamesPlayed { get; private set; }
         public int TotalAttempts { get; private set; }
-        public int MinAttempts { get; private set; } = int.MaxValue;
-        public int MaxAttempts { get; private set; }
         public int Wins { get; private set; }
         public int Losses { get; private set; }
+
+        private int _minAttempts = int.MaxValue;
+        private int _maxAttempts;
+
+        // null, если побед ещё не было
+        public int? MinAttempts => Wins > 0 ? _minAttempts : null;
+        public int? MaxAttempts => Wins > 0 ? _maxAttempts : null;
 
         public void Register(GameRoundResult result)
         {
@@ -19,15 +24,37 @@ namespace GuessTheNumber.Core.Statistics
                 Wins++;
                 TotalAttempts += result.Attempts;
 
-                if (result.Attempts < MinAttempts)
-                    MinAttempts = result.Attempts;
+                if (result.Attempts < _minAttempts)
+                    _minAttempts = result.Attempts;
 
-                if (result.Attempts > MaxAttempts)
-                    MaxAttempts = result.Attempts;
-
+                if (result.Attempts > _maxAttempts)
+                    _maxAttempts = result.Attempts;
             }
-            else { Losses++; }
+            else
+            {
+                Losses++;
+            }
+        }
 
+        public void Reset()
+        {
+            GamesPlayed = 0;
+            TotalAttempts = 0;
+            Wins = 0;
+            Losses = 0;
+            _minAttempts = int.MaxValue;
+            _maxAttempts = 0;
+        }
+
+        public void Restore(int gamesPlayed, int wins, int losses, int totalAttempts,
+                            int? minAttempts, int? maxAttempts)
+        {
+            GamesPlayed = gamesPlayed;
+            Wins = wins;
+            Losses = losses;
+            TotalAttempts = totalAttempts;
+            _minAttempts = minAttempts ?? int.MaxValue;
+            _maxAttempts = maxAttempts ?? 0;
         }
 
         public void PrintReport()
@@ -50,5 +77,4 @@ namespace GuessTheNumber.Core.Statistics
             }
         }
     }
-        
 }
