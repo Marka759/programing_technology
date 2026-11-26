@@ -1,10 +1,9 @@
-﻿using GuessTheNumber.Core.Event;
+﻿using Guess.Core.Players;
+using GuessTheNumber.Core.Event;
 using GuessTheNumber.Core.Game;
 using GuessTheNumber.Core.Input;
 using GuessTheNumber.Core.Output;
-using GuessTheNumber.Core.Players;
 using GuessTheNumber.Core.Settings;
-using GuessTheNumber.Core.Statistics;
 
 namespace GuessTheNumber
 {

@@ -1,4 +1,4 @@
-﻿namespace GuessTheNumber.Core.Players;
+﻿namespace Guess.Core.Players;
 //DIP,ISP
 public interface IPlayerRepository
 {

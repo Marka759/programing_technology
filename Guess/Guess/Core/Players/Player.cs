@@ -1,6 +1,6 @@
 ﻿using GuessTheNumber.Core.Statistics;
 //SRP
-namespace GuessTheNumber.Core.Players;
+namespace Guess.Core.Players;
 
 public class Player
 {

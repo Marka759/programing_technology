@@ -1,6 +1,4 @@
-﻿using GuessTheNumber.Core.Statistics;
-
-namespace GuessTheNumber.Core.Players;
+﻿namespace Guess.Core.Players;
 //LSP,OCP
 public class FilePlayerRepository : IPlayerRepository
 {

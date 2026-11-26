@@ -1,4 +1,4 @@
-﻿namespace GuessTheNumber.Core.Players;
+﻿namespace Guess.Core.Players;
 //LSP,OCP
 public class InMemoryPlayerRepository : IPlayerRepository
 {

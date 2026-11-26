@@ -1,6 +1,6 @@
-﻿using GuessTheNumber.Core.Players;
+﻿using GuessTheNumber.Core.Statistics;
 
-namespace GuessTheNumber.Core.Statistics;
+namespace Guess.Core.Players;
 //SRP,OCP
 public class PerPlayerStatisticsSave : IStatisticsSave
 {
